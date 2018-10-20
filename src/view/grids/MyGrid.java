@@ -1,15 +1,12 @@
 package view.grids;
 
 import java.util.*;
-
-import view.grids.Cell;
 import view.panels.interfaces.Observable;
 import view.panels.interfaces.Observer;
 
-@SuppressWarnings("serial")
 public class MyGrid extends Grid implements Observable, Observer {
 
-	private List<Observer> observers = new ArrayList<Observer>();
+	private List<Observer> observers = new ArrayList<>();
 	public int shipsLeft = 20;
 	
 	public boolean setShot(int x, int y) {
@@ -48,8 +45,7 @@ public class MyGrid extends Grid implements Observable, Observer {
 
 	@Override
     public void addObserver(Observer... obs) {
-		for (Observer observer : obs)
-			observers.add(observer);
+        Collections.addAll(observers, obs);
     }
     
     @Override
@@ -59,9 +55,8 @@ public class MyGrid extends Grid implements Observable, Observer {
  
     @Override
     public void notifyObservers() {
-        for (Observer observer : observers)
-            observer.update();
-    }	
+        observers.forEach(Observer::update);
+    }
 	
 	@Override
 	public void update() {

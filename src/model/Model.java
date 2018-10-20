@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import view.grids.EnemyGrid;
@@ -11,7 +12,7 @@ import view.panels.interfaces.Observer;
 
 public class Model implements Observable {
 	
-	private List<Observer> observers = new ArrayList<Observer>();
+	private List<Observer> observers = new ArrayList<>();
 	public Enemy enemy = new Enemy();
 	public MyGrid myGrid = new MyGrid();
 	public NewGrid newGrid = new NewGrid();
@@ -26,8 +27,7 @@ public class Model implements Observable {
 	
 	@Override
     public void addObserver(Observer... obs) {
-		for (Observer observer : obs)
-			observers.add(observer);
+        Collections.addAll(observers, obs);
     }
     
     @Override
@@ -37,13 +37,8 @@ public class Model implements Observable {
  
     @Override
     public void notifyObservers() {
-        for (Observer observer : observers)
-            observer.update();
+        observers.forEach(view.panels.interfaces.Observer::update);
     }	
-	
-	public Enemy getEnemy() {
-		return enemy;
-	}
 
 	public boolean isMyShot() {
 		return isMyShot;

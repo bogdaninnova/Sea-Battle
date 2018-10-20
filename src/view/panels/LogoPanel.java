@@ -3,7 +3,6 @@ package view.panels;
 import java.awt.*;
 import javax.swing.*;
 
-@SuppressWarnings("serial")
 public class LogoPanel extends AbstractMenuPanel {
 
 	public LogoPanel(ImageIcon imageIcon) {

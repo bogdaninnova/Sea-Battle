@@ -1,9 +1,6 @@
 package view.panels;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -11,7 +8,6 @@ import javax.swing.event.ChangeListener;
 import constants.Constants;
 import controller.Controller;
 
-@SuppressWarnings("serial")
 public class SettingsPanel extends AbstractMenuPanel  {
 	
 
@@ -31,8 +27,7 @@ public class SettingsPanel extends AbstractMenuPanel  {
 		panel.setBackground(Constants.MENU_COLOR);
 		GridBagConstraints c = new GridBagConstraints();
 		panel.setLayout(new GridBagLayout());
-		
-		
+
 		JLabel label = new JLabel("Settings");
 		label.setFont(Constants.WORD_FONT_42);
 		c.gridy = 0;
@@ -68,8 +63,7 @@ public class SettingsPanel extends AbstractMenuPanel  {
 		delaySlider.addChangeListener(new SliderListener());
 
 		delaySlider.setBackground(new Color(0, 0, 0));
-		
-		
+
 		panel.add(delayLabel, c);
 		c.gridx = 1;
 		panel.add(delaySlider, c);
@@ -78,11 +72,7 @@ public class SettingsPanel extends AbstractMenuPanel  {
 		delayValue.setBackground(new Color(0, 0, 0));
 		delayValue.setEnabled(false);
 		panel.add(delayValue, c);
-		
-		
 
-
-		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridBagLayout());
 		buttonPanel.setBackground(Constants.BLANK_COLOR);
@@ -121,13 +111,10 @@ public class SettingsPanel extends AbstractMenuPanel  {
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.setPreferredSize(Constants.buttonDimension);
 		cancelButton.setFont(Constants.WORD_FONT_28);
-		
-		cancelButton.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	        	Controller.getView().getFrame().openOnly(Constants.LOGO_PANEL_KEY, false);
-	        	reset();
-			}
-		});
+		cancelButton.addActionListener(ae -> {
+            Controller.getView().getFrame().openOnly(Constants.LOGO_PANEL_KEY, false);
+            reset();
+        });
 		return cancelButton;
 	}
 	
@@ -135,14 +122,12 @@ public class SettingsPanel extends AbstractMenuPanel  {
 		JButton exitButton = new JButton("Save");
 		exitButton.setPreferredSize(Constants.buttonDimension);
 		exitButton.setFont(Constants.WORD_FONT_28);
-		exitButton.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	        	Controller.getView().getFrame().openOnly(Constants.LOGO_PANEL_KEY, false);
-	        	Constants.USER_SETTINGS.setDelay(delaySlider.getValue());
-	        	Constants.USER_SETTINGS.setFullScreen(checkBoxIsFullScreen.isSelected());
-	        	reset();
-			}
-		});
+		exitButton.addActionListener(ae -> {
+            Controller.getView().getFrame().openOnly(Constants.LOGO_PANEL_KEY, false);
+            Constants.USER_SETTINGS.setDelay(delaySlider.getValue());
+            Constants.USER_SETTINGS.setFullScreen(checkBoxIsFullScreen.isSelected());
+            reset();
+        });
 		return exitButton;
 	}
 	

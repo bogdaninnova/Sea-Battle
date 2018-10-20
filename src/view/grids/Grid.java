@@ -10,19 +10,13 @@ import javax.swing.JPanel;
 import constants.Constants;
 
 
-@SuppressWarnings("serial")
 public class Grid extends JPanel {
 
 
 	
 	protected Cell[][] array = new Cell[10][10];
 	public int[] shipsLeft = new int[4];
-	
-	/**
-	 * @param g - Graphics tool
-	 * @param array - game grid
-	 */
-	
+
 	public Grid() {
 		setOpaque(false);
 		clear();

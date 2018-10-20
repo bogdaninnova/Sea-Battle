@@ -1,17 +1,12 @@
 package view.panels;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.*;
-
 import view.View;
 import view.panels.interfaces.Observer;
 import constants.Constants;
 import controller.Controller;
 
-@SuppressWarnings("serial")
 public class StartPanel extends AbstractMenuPanel implements Observer {
 
 	public JButton startButton = createStartButton();
@@ -66,12 +61,10 @@ public class StartPanel extends AbstractMenuPanel implements Observer {
 	private JButton createStartButton() {
 		JButton startButton = new JButton("Start");
 		startButton.setEnabled(false);
-		startButton.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {	
-	        	Controller.getView().getFrame().openGamePanel();
-	        	Controller.getModel().myGrid.setArray(Controller.getModel().newGrid.getArray());
-	        }
-	 });
+		startButton.addActionListener(ae -> {
+            Controller.getView().getFrame().openGamePanel();
+            Controller.getModel().myGrid.setArray(Controller.getModel().newGrid.getArray());
+        });
 		startButton.setPreferredSize(new Dimension(
 				Constants.smallButtonDimension.width * 2 + 5,
 				Constants.smallButtonDimension.height));
@@ -81,25 +74,21 @@ public class StartPanel extends AbstractMenuPanel implements Observer {
 	private JButton createAutoButton() {
 		JButton autoButton = new JButton("Auto");
 		autoButton.setPreferredSize(Constants.smallButtonDimension);
-		autoButton.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	        	Controller.getModel().newGrid.autoSetting();
-	         	repaint();
-	        }
-		});
+		autoButton.addActionListener(ae -> {
+            Controller.getModel().newGrid.autoSetting();
+            repaint();
+        });
 		return autoButton;
 	}
 	
 	private JButton createCleanButton() {
 		JButton cleanButton = new JButton("Clean");
 		cleanButton.setPreferredSize(Constants.smallButtonDimension);
-		cleanButton.addActionListener(new ActionListener() {
-		        public void actionPerformed(ActionEvent e) {	
-		        	Controller.getModel().newGrid.clear();
-		        	startButton.setEnabled(false);
-		        	repaint();
-		        }
-		 });
+		cleanButton.addActionListener(ae -> {
+            Controller.getModel().newGrid.clear();
+            startButton.setEnabled(false);
+            repaint();
+        });
 		return cleanButton;
 	}
 	

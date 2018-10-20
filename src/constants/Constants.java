@@ -1,16 +1,7 @@
 package constants;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.image.FilteredImageSource;
-import java.awt.image.ImageFilter;
-import java.awt.image.ImageProducer;
-import java.awt.image.RGBImageFilter;
+import java.awt.*;
+import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
@@ -26,7 +17,7 @@ public class Constants {
 
     public static final int CELL_SIZE = getCellSize();
 	
-    private static final int getCellSize() {
+    private static int getCellSize() {
     	if (SCREEN_WIDTH > 1280)
     		return 1280 / 35;
     	return SCREEN_WIDTH / 35;
@@ -118,12 +109,9 @@ public class Constants {
 					new File("ComicSans.ttf")).deriveFont((float)(SCREEN_HEIGHT / 57));
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("ComicSans.ttf")));
-        } catch (IOException e) {
+        } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }
-        catch(FontFormatException e) {
-            e.printStackTrace();
-        }
-		return font;
+        return font;
 	}
 }

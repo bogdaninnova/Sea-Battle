@@ -1,12 +1,10 @@
 package view.panels;
-
 import java.awt.*;
 import javax.swing.*;
 import constants.Constants;
 import controller.Controller;
 import view.panels.interfaces.Observer;
 
-@SuppressWarnings("serial")
 public class GamePanel extends AbstractMenuPanel implements Observer {
 
 	public GamePanel() {

@@ -14,7 +14,6 @@ import controller.Controller;
 import view.panels.*;
 import view.panels.interfaces.Observer;
 
-@SuppressWarnings("serial")
 public class Frame extends JFrame implements Observer {
 
 	private Map<String, AbstractMenuPanel> panelsList;
@@ -27,7 +26,7 @@ public class Frame extends JFrame implements Observer {
 		
 		Controller.getModel().addObserver(this);
 		
-		panelsList = new HashMap<String, AbstractMenuPanel>();
+		panelsList = new HashMap<>();
 			panelsList.put(Constants.START_PANEL_KEY, new StartPanel());
 			panelsList.put(Constants.SETTINGS_PANEL_KEY, new SettingsPanel());
 			panelsList.put(Constants.LOGO_PANEL_KEY, new LogoPanel(Constants.TITLE_LOGO ));
@@ -111,11 +110,6 @@ public class Frame extends JFrame implements Observer {
     	repaint();
 	}
 
-	public Map<String, AbstractMenuPanel> getPanelsList() {
-		return panelsList;
-	}
-	
-
 	private void setActionsOnClick() {
 		
 		panelsList.get(Constants.WIN_PANEL_KEY).addMouseListener(new MouseAdapter() {
@@ -164,7 +158,7 @@ public class Frame extends JFrame implements Observer {
 		Controller.getModel().myGrid.shipsLeft = 20;
 		Controller.getModel().enemyGrid.shipsLeft = 20;
 		Controller.getModel().enemyGrid.hideArray();
-		((GamePanel) panelsList.get(Constants.GAME_PANEL_KEY)).repaint();
+		panelsList.get(Constants.GAME_PANEL_KEY).repaint();
 		Controller.getModel().setMyShot(true);
 	}
 	

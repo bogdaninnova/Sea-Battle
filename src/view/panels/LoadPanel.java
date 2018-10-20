@@ -1,15 +1,10 @@
 package view.panels;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.*;
-
 import constants.Constants;
 import controller.Controller;
 
-@SuppressWarnings("serial")
 public class LoadPanel extends AbstractMenuPanel {
 	
 	public LoadPanel() {
@@ -56,12 +51,7 @@ public class LoadPanel extends AbstractMenuPanel {
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.setPreferredSize(Constants.buttonDimension);
 		cancelButton.setFont(Constants.WORD_FONT_28);
-		
-		cancelButton.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	        	Controller.getView().getFrame().openOnly(Constants.LOGO_PANEL_KEY, false);
-			}
-		});
+        cancelButton.addActionListener(ae -> Controller.getView().getFrame().openOnly(Constants.LOGO_PANEL_KEY, false));
 		return cancelButton;
 	}
 	
@@ -70,11 +60,7 @@ public class LoadPanel extends AbstractMenuPanel {
 		loadButton.setPreferredSize(Constants.buttonDimension);
 		loadButton.setFont(Constants.WORD_FONT_28);
 		loadButton.setEnabled(false);//TODO
-		loadButton.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	        	//TODO Load
-	        }
-		});
+		loadButton.addActionListener(ae -> {});
 		return loadButton;
 	}
 	

@@ -2,19 +2,17 @@ package view.grids;
 
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.*;
-
-import view.grids.Cell;
 import view.panels.StartPanel;
 import view.panels.interfaces.Observable;
 import view.panels.interfaces.Observer;
 
-@SuppressWarnings("serial")
 public class NewGrid extends Grid implements Observable {
 	
-	private List<Observer> observers = new ArrayList<Observer>();
+	private List<Observer> observers = new ArrayList<>();
 	private boolean rotate = false;
 
 	
@@ -87,8 +85,7 @@ public class NewGrid extends Grid implements Observable {
 	
 	@Override
     public void addObserver(Observer... obs) {
-		for (Observer observer : obs)
-			observers.add(observer);
+        Collections.addAll(observers, obs);
     }
     
     @Override
@@ -98,8 +95,7 @@ public class NewGrid extends Grid implements Observable {
  
     @Override
     public void notifyObservers() {
-        for (Observer observer : observers)
-            observer.update();
+        observers.forEach(Observer::update);
     }
 	
 }

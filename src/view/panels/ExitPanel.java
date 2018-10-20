@@ -1,14 +1,9 @@
 package view.panels;
-
 import java.awt.*;
-import java.awt.event.*;
-
 import javax.swing.*;
-
 import constants.Constants;
 import controller.Controller;
 
-@SuppressWarnings("serial")
 public class ExitPanel extends AbstractMenuPanel {
 
 	public ExitPanel() {
@@ -23,7 +18,7 @@ public class ExitPanel extends AbstractMenuPanel {
 		c.gridwidth = 2;
 
 		
-		JLabel label = new JLabel("Do you realy want to exit?");
+		JLabel label = new JLabel("Do you really want to exit?");
 		label.setFont(Constants.WORD_FONT_42);
 		
 		c.insets = new Insets(2 * Constants.BIG_INTERVAL, 2 * Constants.INTERVAL,
@@ -63,15 +58,12 @@ public class ExitPanel extends AbstractMenuPanel {
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.setPreferredSize(Constants.buttonDimension);
 		cancelButton.setFont(Constants.WORD_FONT_28);
-		
-		cancelButton.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	        	if (Controller.getView().getFrame().isGame)
-	        		Controller.getView().getFrame().openOnly(Constants.GAME_PANEL_KEY, true);
-	        	else
-	        		Controller.getView().getFrame().openOnly(Constants.EXIT_PANEL_KEY, false);
-			}
-		});
+        cancelButton.addActionListener(ae -> {
+            if (Controller.getView().getFrame().isGame)
+                Controller.getView().getFrame().openOnly(Constants.GAME_PANEL_KEY, true);
+            else
+                Controller.getView().getFrame().openOnly(Constants.EXIT_PANEL_KEY, false);
+        });
 		return cancelButton;
 	}
 	
@@ -79,11 +71,7 @@ public class ExitPanel extends AbstractMenuPanel {
 		JButton exitButton = new JButton("Exit");
 		exitButton.setPreferredSize(Constants.buttonDimension);
 		exitButton.setFont(Constants.WORD_FONT_28);
-		exitButton.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	        	System.exit(0);
-			}
-		});
+        exitButton.addActionListener(ae -> System.exit(0));
 		return exitButton;
 	}
 	

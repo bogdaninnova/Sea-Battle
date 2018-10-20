@@ -1,18 +1,14 @@
 package view.panels;
 
 import java.awt.*;
-import java.awt.event.*;
-
 import javax.swing.*;
-
 import constants.Constants;
 import controller.Controller;
 
-@SuppressWarnings("serial")
+
 public class MenuPanel extends AbstractMenuPanel {
 
 	public MenuPanel() {
-		
 		int indentX = (Constants.BACKGROUND.getIconHeight() -
 				4 * Constants.buttonDimension.height) / 10;
 		
@@ -23,7 +19,7 @@ public class MenuPanel extends AbstractMenuPanel {
 
 		panel.setPreferredSize(
 				new Dimension(Constants.buttonDimension.width + 2 * indentY,
-				(int) (Constants.BACKGROUND.getIconHeight())));
+				(Constants.BACKGROUND.getIconHeight())));
 		
         setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -49,11 +45,7 @@ public class MenuPanel extends AbstractMenuPanel {
 		JButton button = new JButton(name);
 		button.setPreferredSize(Constants.buttonDimension);
 		button.setFont(Constants.WORD_FONT_28);
-		button.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	        	Controller.getView().getFrame().openOnly(name, false);
-			}
-		});
+		button.addActionListener(ae -> Controller.getView().getFrame().openOnly(name, false));
 		return button;
 	}
 	

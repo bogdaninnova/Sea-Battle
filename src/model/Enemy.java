@@ -40,8 +40,8 @@ public class Enemy {
 	
 	private int[] getSmartShot() {
 		
-		ArrayList<Integer> xList = new ArrayList<Integer>();
-		ArrayList<Integer> yList = new ArrayList<Integer>();
+		ArrayList<Integer> xList = new ArrayList<>();
+		ArrayList<Integer> yList = new ArrayList<>();
 		
 		for (int i = 0; i < 10; i++)
 			for (int j = 0; j < 10; j++)
