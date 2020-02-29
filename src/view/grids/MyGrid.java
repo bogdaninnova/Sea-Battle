@@ -10,18 +10,16 @@ public class MyGrid extends Grid implements Observable, Observer {
 	public int shipsLeft = 20;
 	
 	public boolean setShot(int x, int y) {
-		boolean isShoot = false;
-		if (array[x][y].equals(Cell.WATER)) 
+		if (array[x][y].equals(Cell.WATER)) {
 			array[x][y] = Cell.MISS;
-		else {
+			return false;
+		} else {
 			array[x][y] = Cell.DAMAGE;
 			shipsLeft--;
-			isShoot = true;
+			if (isShipDead(x, y))
+				setMissAroundDead();
+			return true;
 		}
-		if (isShipDead(x, y))
-			setMissAroundDead();
-		
-		return isShoot;
 	}
 	
 	private boolean isShipDead(int x, int y) {
