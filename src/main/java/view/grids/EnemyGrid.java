@@ -2,20 +2,26 @@ package view.grids;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import controller.Controller;
 import view.panels.interfaces.Observable;
 import view.panels.interfaces.Observer;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 public class EnemyGrid extends Grid implements Observable, Observer {
 
 	private List<Observer> observers = new ArrayList<>();
 	private Cell[][] hiddenArray = new Cell[10][10];
 	public int shipsLeft = 20;
+
+	static Logger logger = Logger.getLogger(EnemyGrid.class);
 	
 	public EnemyGrid() {
-
+		PropertyConfigurator.configure("src\\main\\resources\\log4j.properties");
+		logger.debug("Enemies Grid created");
 		hideArray();
 		
 		addMouseListener(new MouseAdapter() {
@@ -27,25 +33,19 @@ public class EnemyGrid extends Grid implements Observable, Observer {
 					int x = getCoordinatesOnGrid(arg0.getX());
 					int y = getCoordinatesOnGrid(arg0.getY());
 					if ((x != -1) && (y != -1) && (array[x][y].equals(Cell.WATER))) {
-						
-						switch (hiddenArray[x][y]) {
-							case SHIP :
-								array[x][y] = Cell.DAMAGE;
-								hiddenArray[x][y] = Cell.DAMAGE;
-								shipsLeft--;
-								
-								Controller.getModel().setMyShot(true);
-								break;
-							default:
-								array[x][y] = Cell.MISS;
-								hiddenArray[x][y] = Cell.MISS;
-								Controller.getModel().setMyShot(false);
-								break;
+
+						if (hiddenArray[x][y] == Cell.SHIP) {
+							array[x][y] = Cell.DAMAGE;
+							hiddenArray[x][y] = Cell.DAMAGE;
+							shipsLeft--;
+							Controller.getModel().setMyShot(true);
+							if (isShipDead(x, y))
+								setMissAroundDead();
+						} else {
+							array[x][y] = Cell.MISS;
+							hiddenArray[x][y] = Cell.MISS;
+							Controller.getModel().setMyShot(false);
 						}
-						
-						if (isShipDead(x, y))
-							setMissAroundDead();
-						
 						notifyObservers();
 						
 					}
@@ -83,6 +83,7 @@ public class EnemyGrid extends Grid implements Observable, Observer {
 					hiddenArray[i][j] = Cell.DEAD;
 					array[i][j] = Cell.DEAD;
 				}
+		logger.debug("Enemies Ship is dead");
 		return true;
 	}
 
