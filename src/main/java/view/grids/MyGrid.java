@@ -1,6 +1,8 @@
 package view.grids;
 
 import java.util.*;
+
+import org.apache.log4j.Logger;
 import view.panels.interfaces.Observable;
 import view.panels.interfaces.Observer;
 
@@ -8,7 +10,13 @@ public class MyGrid extends Grid implements Observable, Observer {
 
 	private List<Observer> observers = new ArrayList<>();
 	public int shipsLeft = 20;
-	
+
+	static Logger logger = Logger.getLogger(MyGrid.class);
+
+	public MyGrid() {
+		logger.debug("Enemies Grid created");
+	}
+
 	public boolean setShot(int x, int y) {
 		if (array[x][y].equals(Cell.WATER)) {
 			array[x][y] = Cell.MISS;
@@ -38,6 +46,7 @@ public class MyGrid extends Grid implements Observable, Observer {
 						}
 					}
 		restore(Cell.SOME, Cell.DEAD);
+		logger.debug("My Ship is dead");
 		return true;
 	}
 
