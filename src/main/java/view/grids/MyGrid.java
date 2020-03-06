@@ -11,7 +11,7 @@ public class MyGrid extends Grid implements Observable, Observer {
 	private List<Observer> observers = new ArrayList<>();
 	public int shipsLeft = 20;
 
-	static Logger logger = Logger.getLogger(EnemyGrid.class);
+	static Logger logger = Logger.getLogger(MyGrid.class);
 
 	public MyGrid() {
 		logger.debug("Enemies Grid created");
