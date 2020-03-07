@@ -10,7 +10,6 @@ import view.grids.Cell;
 
 public class Enemy {
 
-	
 	private Random rand = new Random();
 
 	public void shot() {
@@ -60,7 +59,7 @@ public class Enemy {
 		boolean isFirst = true;
 		boolean isSecond = true;
 		
-		if (yList.get(0) == yList.get(1)) {
+		if (yList.get(0).equals(yList.get(1))) {
 
 			int x1 = xList.get(0) - 1;
 			int x2 = xList.get(1) + 1;
@@ -158,31 +157,29 @@ public class Enemy {
 		while (true) {
 			boolean r1 = rand.nextBoolean();
 			boolean r2 = rand.nextBoolean();
-			try {
-				if (r1) {
-					if (r2) {
-						if (mayShoot(x-1, y)) 
-							return new int[] {x-1, y};
-					} else {
-						if (mayShoot(x+1, y)) 
-							return new int[] {x+1, y};
-					}
+			if (r1) {
+				if (r2) {
+					if (mayShoot(x-1, y))
+						return new int[] {x-1, y};
 				} else {
-					if (r2) {
-						if (mayShoot(x, y-1)) 
-							return new int[] {x, y-1};
-					} else {
-						if (mayShoot(x, y+1)) 
-							return new int[] {x, y+1};
-					}
+					if (mayShoot(x+1, y))
+						return new int[] {x+1, y};
 				}
-			} catch(ArrayIndexOutOfBoundsException e) {
-				continue;
+			} else {
+				if (r2) {
+					if (mayShoot(x, y-1))
+						return new int[] {x, y-1};
+				} else {
+					if (mayShoot(x, y+1))
+						return new int[] {x, y+1};
+				}
 			}
 		}
 	}
 	
 	private boolean mayShoot(int x, int y) {
+		if ((x < 0) || (y < 0) || (x >= 10) || (y >= 10))
+			return false;
 		return (Controller.getModel().myGrid.getArray()[x][y].equals(Cell.WATER) ||
 				Controller.getModel().myGrid.getArray()[x][y].equals(Cell.SHIP));
 	}

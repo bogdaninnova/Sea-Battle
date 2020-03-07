@@ -17,7 +17,7 @@ public class EnemyGrid extends Grid implements Observable, Observer {
 	private Cell[][] hiddenArray = new Cell[10][10];
 	public int shipsLeft = 20;
 
-	static Logger logger = Logger.getLogger(EnemyGrid.class);
+	static Logger logger = Logger.getLogger(EnemyGrid.class.getName());
 	
 	public EnemyGrid() {
 		PropertyConfigurator.configure("src\\main\\resources\\log4j.properties");

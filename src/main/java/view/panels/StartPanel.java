@@ -11,7 +11,7 @@ public class StartPanel extends AbstractMenuPanel implements Observer {
 
 	public JButton startButton = createStartButton();
 	private final String[] ships = {"1-dimension", "2-dimension", "3-dimension", "4-dimension"};
-	public JComboBox<String> chooseShip = new JComboBox<String>(ships);
+	public JComboBox<String> chooseShip = new JComboBox<>(ships);
 	public JTextField[] texts = createTexts();
 	private JPanel shipsLeftPanel = shipsLeftPanel();
 	

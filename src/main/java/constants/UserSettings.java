@@ -10,8 +10,8 @@ public class UserSettings {
 	private static final String PREF_IS_FULLSCREEN = "IS_FULLSCREEN_VALUE";
 	
 	public UserSettings() {
-		setDelay(Integer.valueOf(prefs.get(PREF_DELAY, "500")));
-		setFullScreen(Boolean.valueOf(prefs.get(PREF_IS_FULLSCREEN, "true")));
+		setDelay(Integer.parseInt(prefs.get(PREF_DELAY, "500")));
+		setFullScreen(Boolean.parseBoolean(prefs.get(PREF_IS_FULLSCREEN, "true")));
 	}
 	
 	private int delay;

@@ -102,7 +102,7 @@ public class SettingsPanel extends AbstractMenuPanel  {
 	    public void stateChanged(ChangeEvent e) {
 	        JSlider source = (JSlider)e.getSource();
 	        if (!source.getValueIsAdjusting()) {
-	            delayValue.setText(Integer.toString(source.getValue()) + " ms");
+	            delayValue.setText(source.getValue() + " ms");
 	        }    
 	    }
 	}
@@ -134,7 +134,7 @@ public class SettingsPanel extends AbstractMenuPanel  {
 	private void reset() {
 		checkBoxIsFullScreen.setSelected(Constants.USER_SETTINGS.isFullScreen());
 		delaySlider.setValue(Constants.USER_SETTINGS.getDelay());
-		delayValue.setText(Integer.toString(delaySlider.getValue()) + " ms");
+		delayValue.setText(delaySlider.getValue() + " ms");
 	}
 	
 }

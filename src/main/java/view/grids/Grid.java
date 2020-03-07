@@ -100,37 +100,28 @@ public class Grid extends JPanel {
 	
 	private boolean isCellBorder(int x, int y) {
 		for (int i = x - 1; i <= x + 1; i++) 
-			for (int j = y - 1; j <= y + 1; j++) 
-				try {
+			for (int j = y - 1; j <= y + 1; j++)
+				if (i >= 0 && j >= 0 && i < 10 && j < 10)
 					if (array[i][j].equals(Cell.SHIP))
 						return true;
-				} catch(ArrayIndexOutOfBoundsException e) {
-					continue;
-				}
 		return false;
 	}
 	
-	protected boolean setShip(int x, int y, int size, boolean rotate, Cell cell) {
+	protected void setShip(int x, int y, int size, boolean rotate, Cell cell) {
 		
 		if ((isShipBorder(x, y, size, rotate)) ||
 				(shipsLeft[size - 1] == 0) ||
 				(x + size > 10 && rotate) ||
 				(y + size > 10 && !rotate))
-			return false;
+			return;
 
-		int[] xCoord = new int[size];
-		int[] yCoord = new int[size];
-		
 		for (int i = 0; i < size; i++) {
 			array[x][y] = cell;
-			xCoord[i] = x;
-			yCoord[i] = y;
 			if (rotate) x++;
 			else y++;
 		}
 		if (cell.equals(Cell.SHIP))
 			shipsLeft[size - 1]--;
-		return true;
 	}
 	
 	public void clear() {
