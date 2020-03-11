@@ -3,17 +3,21 @@ package view.grids;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.JPanel;
 
 import constants.Constants;
+import view.panels.interfaces.Observable;
+import view.panels.interfaces.Observer;
 
 
-public class Grid extends JPanel {
+public class Grid extends JPanel implements Observable, Observer {
 
-
-	
+	protected List<Observer> observers = new ArrayList<>();
 	protected Cell[][] array = new Cell[10][10];
 	public int[] shipsLeft = new int[4];
 
@@ -161,5 +165,25 @@ public class Grid extends JPanel {
 					if (array[i][j].equals(Cell.SHIP))
 						return true;
 		return false;
+	}
+
+	@Override
+	public void addObserver(Observer... obs) {
+		Collections.addAll(observers, obs);
+	}
+
+	@Override
+	public boolean removeObserver(Observer o) {
+		return observers.remove(o);
+	}
+
+	@Override
+	public void notifyObservers() {
+		observers.forEach(Observer::update);
+	}
+
+	@Override
+	public void update() {
+		notifyObservers();
 	}
 }
