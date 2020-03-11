@@ -1,21 +1,14 @@
 package view.grids;
 
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import javax.swing.*;
 import view.panels.StartPanel;
-import view.panels.interfaces.Observable;
-import view.panels.interfaces.Observer;
 
-public class NewGrid extends Grid implements Observable {
-	
-	private List<Observer> observers = new ArrayList<>();
+public class NewGrid extends Grid {
+
 	private boolean rotate = false;
 
-	
 	public NewGrid() {
 		setMouseAction();
 	}
@@ -82,20 +75,5 @@ public class NewGrid extends Grid implements Observable {
 		super.autoSetting();
 		notifyObservers();
 	}
-	
-	@Override
-    public void addObserver(Observer... obs) {
-        Collections.addAll(observers, obs);
-    }
-    
-    @Override
-    public boolean removeObserver(Observer o) {
-        return observers.remove(o);
-    }
- 
-    @Override
-    public void notifyObservers() {
-        observers.forEach(Observer::update);
-    }
 	
 }

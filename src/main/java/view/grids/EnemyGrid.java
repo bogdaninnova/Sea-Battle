@@ -2,18 +2,12 @@ package view.grids;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import controller.Controller;
-import view.panels.interfaces.Observable;
-import view.panels.interfaces.Observer;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-public class EnemyGrid extends Grid implements Observable, Observer {
+public class EnemyGrid extends Grid {
 
-	private List<Observer> observers = new ArrayList<>();
 	private Cell[][] hiddenArray = new Cell[10][10];
 	public int shipsLeft = 20;
 
@@ -87,25 +81,4 @@ public class EnemyGrid extends Grid implements Observable, Observer {
 		return true;
 	}
 
-	@Override
-    public void addObserver(Observer... obs) {
-        Collections.addAll(observers, obs);
-    }
-    
-    @Override
-    public boolean removeObserver(Observer o) {
-        return observers.remove(o);
-    }
- 
-    @Override
-    public void notifyObservers() {
-        observers.forEach(Observer::update);
-    }
-
-	@Override
-	public void update() {
-		notifyObservers();
-	}
-	
-	
 }
