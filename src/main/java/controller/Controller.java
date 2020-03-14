@@ -1,8 +1,10 @@
 package controller;
 
 import model.Model;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import view.View;
 
+@SpringBootApplication
 public class Controller {
 
 	private static View view;
