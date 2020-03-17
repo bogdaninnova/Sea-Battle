@@ -6,7 +6,6 @@ import controller.Controller;
 import model.ModelBean;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class EnemyGrid extends Grid {
 

@@ -10,7 +10,6 @@ import javax.swing.*;
 import constants.Constants;
 import controller.Controller;
 import model.ModelBean;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import view.panels.*;
 import view.panels.interfaces.Observer;
 
@@ -21,9 +20,8 @@ public class Frame extends JFrame implements Observer {
 	public boolean isGame = false;
 	private ModelBean modelBeen;
 	
-	
-	public Frame() {
 
+	public Frame() {
 		System.out.println("Frame created");
 		modelBeen = Controller.context.getBean("modelBean", ModelBean.class);
 		modelBeen.addObserver(this);

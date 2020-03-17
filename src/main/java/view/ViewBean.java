@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
 import constants.Constants;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @org.springframework.stereotype.Component
 public class ViewBean {
@@ -13,11 +14,6 @@ public class ViewBean {
 
 	public ViewBean() {
 		System.out.println("ViewBean created");
-	}
-
-	public void initiate() {
-
-		frame = new Frame();
 
 		UIManager.put("Button.font", Constants.WORD_FONT_16);
 		UIManager.put("Label.font", Constants.WORD_FONT_16);
@@ -27,6 +23,10 @@ public class ViewBean {
 		UIManager.put("ComboBox.font", Constants.WORD_FONT_16);
 		UIManager.put("TextArea.font", Constants.WORD_FONT_16);
 		UIManager.put("List.font", Constants.WORD_FONT_16);
+	}
+
+	public void initiate() {
+		frame = new Frame();
 	}
 
 	public static void setOnCenter(Window frame) {

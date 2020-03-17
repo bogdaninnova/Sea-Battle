@@ -4,7 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 import constants.Constants;
 import controller.Controller;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import view.ViewBean;
 
 

@@ -4,7 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 
 import model.ModelBean;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import view.ViewBean;
 import view.panels.interfaces.Observer;
 import constants.Constants;
@@ -17,6 +16,7 @@ public class StartPanel extends AbstractMenuPanel implements Observer {
 	public JComboBox<String> chooseShip = new JComboBox<>(ships);
 	public JTextField[] texts;
 	private JPanel shipsLeftPanel;
+
 	private ModelBean modelBeen;
 	private ViewBean viewBean;
 

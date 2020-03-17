@@ -6,7 +6,6 @@ import java.util.TimerTask;
 
 import constants.Constants;
 import controller.Controller;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import view.grids.Cell;
 
 public class Enemy {
