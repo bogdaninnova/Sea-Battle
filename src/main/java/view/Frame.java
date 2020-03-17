@@ -9,6 +9,8 @@ import java.util.*;
 import javax.swing.*;
 import constants.Constants;
 import controller.Controller;
+import model.ModelBean;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import view.panels.*;
 import view.panels.interfaces.Observer;
 
@@ -17,13 +19,16 @@ public class Frame extends JFrame implements Observer {
 	private Map<String, AbstractMenuPanel> panelsList;
 	private boolean isStarted = false;
 	public boolean isGame = false;
-	
+	private ModelBean modelBeen;
 	
 	
 	public Frame() {
-		
-		Controller.getModel().addObserver(this);
-		
+
+		System.out.println("Frame created");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+		modelBeen = context.getBean("modelBean", ModelBean.class);
+		modelBeen.addObserver(this);
+
 		panelsList = new HashMap<>();
 			panelsList.put(Constants.START_PANEL_KEY, new StartPanel());
 			panelsList.put(Constants.SETTINGS_PANEL_KEY, new SettingsPanel());
@@ -40,7 +45,7 @@ public class Frame extends JFrame implements Observer {
 		setActionsOnClick();
 		
 		add(panelsList.get(Constants.LOGO_PANEL_KEY), BorderLayout.CENTER);
-		View.setOnCenter(this);
+		ViewBean.setOnCenter(this);
 		pack();
 		addDeleteKeyListener();
 		
@@ -138,12 +143,12 @@ public class Frame extends JFrame implements Observer {
 	@Override
 	public void update() {
 		
-		if (Controller.getModel().myGrid.shipsLeft == 0) {
+		if (modelBeen.myGrid.shipsLeft == 0) {
 			openOnly(Constants.LOSE_PANEL_KEY, true);
 			updatingAfterGame();
 		}
 				
-		if	(Controller.getModel().enemyGrid.shipsLeft == 0) {
+		if	(modelBeen.enemyGrid.shipsLeft == 0) {
 			openOnly(Constants.WIN_PANEL_KEY, true);
 			updatingAfterGame();
 		}
@@ -152,12 +157,12 @@ public class Frame extends JFrame implements Observer {
 	private void updatingAfterGame() {
 		isStarted = false;
 		isGame = false;
-		Controller.getModel().newGrid.clear();
-		Controller.getModel().myGrid.shipsLeft = 20;
-		Controller.getModel().enemyGrid.shipsLeft = 20;
-		Controller.getModel().enemyGrid.hideArray();
+		modelBeen.newGrid.clear();
+		modelBeen.myGrid.shipsLeft = 20;
+		modelBeen.enemyGrid.shipsLeft = 20;
+		modelBeen.enemyGrid.hideArray();
 		panelsList.get(Constants.GAME_PANEL_KEY).repaint();
-		Controller.getModel().setMyShot(true);
+		modelBeen.setMyShot(true);
 	}
 	
 	private void addDeleteKeyListener() {

@@ -4,10 +4,18 @@ import java.awt.*;
 import javax.swing.*;
 import constants.Constants;
 import controller.Controller;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import view.ViewBean;
 
 public class LoadPanel extends AbstractMenuPanel {
-	
+
+	private ViewBean viewBean;
+
 	public LoadPanel() {
+
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+		viewBean = context.getBean("viewBean", ViewBean.class);
+
 		JPanel panel = new JPanel();
 		panel.setBackground(Constants.MENU_COLOR);
 		panel.setPreferredSize(Constants.PANEL_DIMENSION);
@@ -22,9 +30,7 @@ public class LoadPanel extends AbstractMenuPanel {
 				Constants.buttonDimension.height,
 				2 * Constants.INTERVAL);
 		panel.add(label, c);
-		
-		
-		
+
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridBagLayout());
 		buttonPanel.setBackground(Constants.BLANK_COLOR);
@@ -51,7 +57,7 @@ public class LoadPanel extends AbstractMenuPanel {
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.setPreferredSize(Constants.buttonDimension);
 		cancelButton.setFont(Constants.WORD_FONT_28);
-        cancelButton.addActionListener(ae -> Controller.getView().getFrame().openOnly(Constants.LOGO_PANEL_KEY, false));
+        cancelButton.addActionListener(ae -> viewBean.getFrame().openOnly(Constants.LOGO_PANEL_KEY, false));
 		return cancelButton;
 	}
 	

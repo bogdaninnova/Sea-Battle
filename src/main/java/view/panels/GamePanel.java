@@ -3,11 +3,16 @@ import java.awt.*;
 import javax.swing.*;
 import constants.Constants;
 import controller.Controller;
+import model.ModelBean;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import view.panels.interfaces.Observer;
 
 public class GamePanel extends AbstractMenuPanel implements Observer {
 
 	public GamePanel() {
+
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+		ModelBean modelBeen = context.getBean("modelBean", ModelBean.class);
 
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
@@ -18,12 +23,12 @@ public class GamePanel extends AbstractMenuPanel implements Observer {
 		GridBagConstraints c = new GridBagConstraints();
 		panel. setLayout(new GridBagLayout());
 		c.insets = new Insets(0, Constants.INTERVAL, 0, Constants.INTERVAL);
-		panel.add(Controller.getModel().myGrid, c);
+		panel.add(modelBeen.myGrid, c);
 		c.gridx = 1;
-		panel.add(Controller.getModel().enemyGrid, c);
-		
-		Controller.getModel().enemyGrid.addObserver(this);
-		Controller.getModel().myGrid.addObserver(this);
+		panel.add(modelBeen.enemyGrid, c);
+
+		modelBeen.enemyGrid.addObserver(this);
+		modelBeen.myGrid.addObserver(this);
 		
 		c.insets = new Insets(0, 0, 0, 0);
 		add(panel, c);

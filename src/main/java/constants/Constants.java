@@ -12,12 +12,12 @@ public class Constants {
 
 	public static final UserSettings USER_SETTINGS = new UserSettings();
 	public static final String APPLICATION_NAME = "Sea Battle";
-    public static final int SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    public static int SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
     public static final int SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
 
     public static final int CELL_SIZE = getCellSize();
-	
-    private static int getCellSize() {
+
+	private static int getCellSize() {
     	if (SCREEN_WIDTH > 1280)
     		return 1280 / 35;
     	return SCREEN_WIDTH / 35;

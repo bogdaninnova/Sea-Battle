@@ -4,11 +4,19 @@ import java.awt.*;
 import javax.swing.*;
 import constants.Constants;
 import controller.Controller;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import view.ViewBean;
 
 
 public class MenuPanel extends AbstractMenuPanel {
 
+	private ViewBean viewBean;
+
 	public MenuPanel() {
+
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+		viewBean = context.getBean("viewBean", ViewBean.class);
+
 		int indentX = (Constants.BACKGROUND.getIconHeight() -
 				4 * Constants.buttonDimension.height) / 10;
 		
@@ -45,7 +53,7 @@ public class MenuPanel extends AbstractMenuPanel {
 		JButton button = new JButton(name);
 		button.setPreferredSize(Constants.buttonDimension);
 		button.setFont(Constants.WORD_FONT_28);
-		button.addActionListener(ae -> Controller.getView().getFrame().openOnly(name, false));
+		button.addActionListener(ae -> viewBean.getFrame().openOnly(name, false));
 		return button;
 	}
 	

@@ -3,8 +3,10 @@ package view.grids;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import controller.Controller;
+import model.ModelBean;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class EnemyGrid extends Grid {
 
@@ -17,12 +19,14 @@ public class EnemyGrid extends Grid {
 		PropertyConfigurator.configure("src\\main\\resources\\log4j.properties");
 		logger.debug("Enemies Grid created");
 		hideArray();
-		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+		ModelBean modelBeen = context.getBean("modelBean", ModelBean.class);
+
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				
-				if (Controller.getModel().isMyShot()) {
+				if (modelBeen.isMyShot()) {
 					
 					int x = getCoordinatesOnGrid(arg0.getX());
 					int y = getCoordinatesOnGrid(arg0.getY());
@@ -32,13 +36,13 @@ public class EnemyGrid extends Grid {
 							array[x][y] = Cell.DAMAGE;
 							hiddenArray[x][y] = Cell.DAMAGE;
 							shipsLeft--;
-							Controller.getModel().setMyShot(true);
+							modelBeen.setMyShot(true);
 							if (isShipDead(x, y))
 								setMissAroundDead();
 						} else {
 							array[x][y] = Cell.MISS;
 							hiddenArray[x][y] = Cell.MISS;
-							Controller.getModel().setMyShot(false);
+							modelBeen.setMyShot(false);
 						}
 						notifyObservers();
 						

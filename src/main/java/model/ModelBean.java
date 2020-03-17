@@ -4,23 +4,34 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
 import view.grids.EnemyGrid;
 import view.grids.MyGrid;
 import view.grids.NewGrid;
 import view.panels.interfaces.Observable;
 import view.panels.interfaces.Observer;
 
-public class Model implements Observable {
+@Component
+public class ModelBean implements Observable {
 	
 	private List<Observer> observers = new ArrayList<>();
-	public Enemy enemy = new Enemy();
-	public MyGrid myGrid = new MyGrid();
-	public NewGrid newGrid = new NewGrid();
-	public EnemyGrid enemyGrid = new EnemyGrid();
+	public Enemy enemy;
+	public MyGrid myGrid;
+	public NewGrid newGrid;
+	public EnemyGrid enemyGrid;
 
 	private boolean isMyShot = true;
 	
-	public Model() {
+	public ModelBean() {
+		System.out.println("ModelBeen created");
+	}
+
+	public void initiate() {
+		enemy = new Enemy();
+		myGrid = new MyGrid();
+		newGrid = new NewGrid();
+		enemyGrid = new EnemyGrid();
+
 		addObserver(enemyGrid);
 		addObserver(myGrid);
 	}

@@ -7,6 +7,9 @@ import javax.swing.event.ChangeListener;
 
 import constants.Constants;
 import controller.Controller;
+import model.ModelBean;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import view.ViewBean;
 
 public class SettingsPanel extends AbstractMenuPanel  {
 	
@@ -18,9 +21,13 @@ public class SettingsPanel extends AbstractMenuPanel  {
 			JSlider.HORIZONTAL, Constants.DELAY_MIN, Constants.DELAY_MAX, 0);
 	
 	private JTextField delayValue = new JTextField();
-	
+	private ViewBean viewBean;
+
 	public SettingsPanel() {
-		
+
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+		viewBean = context.getBean("viewBean", ViewBean.class);
+
 		reset();
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(Constants.PANEL_DIMENSION);
@@ -112,7 +119,7 @@ public class SettingsPanel extends AbstractMenuPanel  {
 		cancelButton.setPreferredSize(Constants.buttonDimension);
 		cancelButton.setFont(Constants.WORD_FONT_28);
 		cancelButton.addActionListener(ae -> {
-            Controller.getView().getFrame().openOnly(Constants.LOGO_PANEL_KEY, false);
+			viewBean.getFrame().openOnly(Constants.LOGO_PANEL_KEY, false);
             reset();
         });
 		return cancelButton;
@@ -123,7 +130,7 @@ public class SettingsPanel extends AbstractMenuPanel  {
 		exitButton.setPreferredSize(Constants.buttonDimension);
 		exitButton.setFont(Constants.WORD_FONT_28);
 		exitButton.addActionListener(ae -> {
-            Controller.getView().getFrame().openOnly(Constants.LOGO_PANEL_KEY, false);
+			viewBean.getFrame().openOnly(Constants.LOGO_PANEL_KEY, false);
             Constants.USER_SETTINGS.setDelay(delaySlider.getValue());
             Constants.USER_SETTINGS.setFullScreen(checkBoxIsFullScreen.isSelected());
             reset();

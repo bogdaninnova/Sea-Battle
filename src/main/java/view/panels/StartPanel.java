@@ -2,7 +2,10 @@ package view.panels;
 
 import java.awt.*;
 import javax.swing.*;
-import view.View;
+
+import model.ModelBean;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import view.ViewBean;
 import view.panels.interfaces.Observer;
 import constants.Constants;
 import controller.Controller;
@@ -13,11 +16,17 @@ public class StartPanel extends AbstractMenuPanel implements Observer {
 	private final String[] ships = {"1-dimension", "2-dimension", "3-dimension", "4-dimension"};
 	public JComboBox<String> chooseShip = new JComboBox<>(ships);
 	public JTextField[] texts = createTexts();
-	private JPanel shipsLeftPanel = shipsLeftPanel();
-	
+	private JPanel shipsLeftPanel;
+	private ModelBean modelBeen;
+	private ViewBean viewBean;
+
 	public StartPanel() {
-		
-		Controller.getModel().newGrid.addObserver(this);
+
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+		modelBeen = context.getBean("modelBean", ModelBean.class);
+		viewBean = context.getBean("viewBean", ViewBean.class);
+
+		shipsLeftPanel = shipsLeftPanel();
 
 		chooseShip.setPreferredSize(new Dimension(
 				Constants.smallButtonDimension.width * 2 + Constants.INTERVAL,
@@ -30,16 +39,18 @@ public class StartPanel extends AbstractMenuPanel implements Observer {
 		add(createPanel(), c);
 		c.gridx = 1;
 		c.insets = new Insets(0, Constants.INTERVAL, 0, 0);
-		add(Controller.getModel().newGrid, c);
+		add(modelBeen.newGrid, c);
+
+		modelBeen.newGrid.addObserver(this);
 	}
 	
 	private JPanel createPanel() {
 		
-		JPanel buttonsPanel = View.createFlowPanel(createCleanButton(), createAutoButton());
+		JPanel buttonsPanel = ViewBean.createFlowPanel(createCleanButton(), createAutoButton());
 
 		buttonsPanel.setOpaque(false);
 		
-		JPanel panel = View.createDownPanel(
+		JPanel panel = ViewBean.createDownPanel(
 				chooseShip,
 				new JLabel("<html><u><i>Right click to rotate</i>"),
 				shipsLeftPanel,
@@ -62,8 +73,8 @@ public class StartPanel extends AbstractMenuPanel implements Observer {
 		JButton startButton = new JButton("Start");
 		startButton.setEnabled(false);
 		startButton.addActionListener(ae -> {
-            Controller.getView().getFrame().openGamePanel();
-            Controller.getModel().myGrid.setArray(Controller.getModel().newGrid.getArray());
+			viewBean.getFrame().openGamePanel();
+			modelBeen.myGrid.setArray(modelBeen.newGrid.getArray());
         });
 		startButton.setPreferredSize(new Dimension(
 				Constants.smallButtonDimension.width * 2 + 5,
@@ -75,7 +86,7 @@ public class StartPanel extends AbstractMenuPanel implements Observer {
 		JButton autoButton = new JButton("Auto");
 		autoButton.setPreferredSize(Constants.smallButtonDimension);
 		autoButton.addActionListener(ae -> {
-            Controller.getModel().newGrid.autoSetting();
+			modelBeen.newGrid.autoSetting();
             repaint();
         });
 		return autoButton;
@@ -85,7 +96,7 @@ public class StartPanel extends AbstractMenuPanel implements Observer {
 		JButton cleanButton = new JButton("Clean");
 		cleanButton.setPreferredSize(Constants.smallButtonDimension);
 		cleanButton.addActionListener(ae -> {
-            Controller.getModel().newGrid.clear();
+			modelBeen.newGrid.clear();
             startButton.setEnabled(false);
             repaint();
         });
@@ -124,7 +135,7 @@ public class StartPanel extends AbstractMenuPanel implements Observer {
 			c.gridx = 0;
 			panel.add(new JLabel((i + 1) + "-dimension - "), c);
 			c.gridx = 1;
-			texts[i].setText(Integer.toString(Controller.getModel().newGrid.shipsLeft[i]));
+				texts[i].setText(Integer.toString(modelBeen.newGrid.shipsLeft[i]));
 			panel.add(texts[i], c);
 		}
 		return panel;
@@ -132,9 +143,9 @@ public class StartPanel extends AbstractMenuPanel implements Observer {
 
 	@Override
 	public void update() {
-		startButton.setEnabled(Controller.getModel().newGrid.isItAll());
+		startButton.setEnabled(modelBeen.newGrid.isItAll());
 		for (int i = 0; i < 4; i++) 
-			texts[i].setText(Integer.toString(Controller.getModel().newGrid.shipsLeft[i]));
+			texts[i].setText(Integer.toString(modelBeen.newGrid.shipsLeft[i]));
 		repaint();
 		
 	}

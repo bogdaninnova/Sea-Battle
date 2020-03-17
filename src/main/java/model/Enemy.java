@@ -6,21 +6,28 @@ import java.util.TimerTask;
 
 import constants.Constants;
 import controller.Controller;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import view.grids.Cell;
 
 public class Enemy {
 
 	private Random rand = new Random();
+	private ModelBean modelBeen;
+
+	public Enemy() {
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+		modelBeen = context.getBean("modelBean", ModelBean.class);
+	}
 
 	public void shot() {
-		if (Controller.getModel().myGrid.shipsLeft != 0)
-			if (!Controller.getModel().isMyShot()) {
+		if (modelBeen.myGrid.shipsLeft != 0)
+			if (!modelBeen.isMyShot()) {
 				Constants.TIMER.schedule(new TimerTask() {
 					public void run() {
 						
 						int[] shot = getSmartShot();
-						Controller.getModel().setMyShot(
-								!Controller.getModel().myGrid.setShot(shot[0], shot[1])); 
+						modelBeen.setMyShot(
+								!modelBeen.myGrid.setShot(shot[0], shot[1]));
 						
 					}
 				}, Constants.USER_SETTINGS.getDelay());
@@ -41,10 +48,10 @@ public class Enemy {
 		
 		ArrayList<Integer> xList = new ArrayList<>();
 		ArrayList<Integer> yList = new ArrayList<>();
-		
+
 		for (int i = 0; i < 10; i++)
 			for (int j = 0; j < 10; j++)
-				if (Controller.getModel().myGrid.getArray()[i][j].equals(Cell.DAMAGE)) {
+				if (modelBeen.myGrid.getArray()[i][j].equals(Cell.DAMAGE)) {
 					xList.add(i);
 					yList.add(j);
 				}
@@ -67,32 +74,32 @@ public class Enemy {
 			if (x1 == -1) 
 				isFirst = false;
 			if (isFirst)
-				if (Controller.getModel().myGrid.getArray()[x1][yList.get(0)].equals(Cell.MISS))
+				if (modelBeen.myGrid.getArray()[x1][yList.get(0)].equals(Cell.MISS))
 					isFirst = false;
 			
 			if (isFirst)
-				if (Controller.getModel().myGrid.getArray()[x1][yList.get(0)].equals(Cell.DAMAGE))
+				if (modelBeen.myGrid.getArray()[x1][yList.get(0)].equals(Cell.DAMAGE))
 					x1--;
 			
 			if (x1 == -1) 
 				isFirst = false;
 			if (isFirst)
-				if (Controller.getModel().myGrid.getArray()[x1][yList.get(0)].equals(Cell.MISS))
+				if (modelBeen.myGrid.getArray()[x1][yList.get(0)].equals(Cell.MISS))
 					isFirst = false;
 			
 			if (x2 == 10) 
 				isSecond = false;
 			if (isSecond)
-				if (Controller.getModel().myGrid.getArray()[x2][yList.get(0)].equals(Cell.MISS))
+				if (modelBeen.myGrid.getArray()[x2][yList.get(0)].equals(Cell.MISS))
 					isSecond = false;
 			
 			if (isSecond)
-				if (Controller.getModel().myGrid.getArray()[x2][yList.get(0)].equals(Cell.DAMAGE))
+				if (modelBeen.myGrid.getArray()[x2][yList.get(0)].equals(Cell.DAMAGE))
 					x2++;
 			if (x2 == 10) 
 				isSecond = false;
 			if (isSecond)
-				if (Controller.getModel().myGrid.getArray()[x2][yList.get(0)].equals(Cell.MISS))
+				if (modelBeen.myGrid.getArray()[x2][yList.get(0)].equals(Cell.MISS))
 					isSecond = false;
 			
 			if (r1) {
@@ -112,32 +119,32 @@ public class Enemy {
 			if (y1 == -1) 
 				isFirst = false;
 			if (isFirst)
-				if (Controller.getModel().myGrid.getArray()[xList.get(0)][y1].equals(Cell.MISS))
+				if (modelBeen.myGrid.getArray()[xList.get(0)][y1].equals(Cell.MISS))
 					isFirst = false;
 			
 			if (isFirst)
-				if (Controller.getModel().myGrid.getArray()[xList.get(0)][y1].equals(Cell.DAMAGE))
+				if (modelBeen.myGrid.getArray()[xList.get(0)][y1].equals(Cell.DAMAGE))
 					y1--;
 			if (y1 == -1) 
 				isFirst = false;
 			if (isFirst)
-				if (Controller.getModel().myGrid.getArray()[xList.get(0)][y1].equals(Cell.MISS))
+				if (modelBeen.myGrid.getArray()[xList.get(0)][y1].equals(Cell.MISS))
 					isFirst = false;
 			
 			
 			if (y2 == 10) 
 				isSecond = false;
 			if (isSecond)
-				if (Controller.getModel().myGrid.getArray()[xList.get(0)][y2].equals(Cell.MISS))
+				if (modelBeen.myGrid.getArray()[xList.get(0)][y2].equals(Cell.MISS))
 					isSecond = false;
 			
 			if (isSecond)
-				if (Controller.getModel().myGrid.getArray()[xList.get(0)][y2].equals(Cell.DAMAGE))
+				if (modelBeen.myGrid.getArray()[xList.get(0)][y2].equals(Cell.DAMAGE))
 					y2++;
 			if (y2 == 10) 
 				isSecond = false;
 			if (isSecond)
-				if (Controller.getModel().myGrid.getArray()[xList.get(0)][y2].equals(Cell.MISS))
+				if (modelBeen.myGrid.getArray()[xList.get(0)][y2].equals(Cell.MISS))
 					isSecond = false;
 			
 			
@@ -180,8 +187,8 @@ public class Enemy {
 	private boolean mayShoot(int x, int y) {
 		if ((x < 0) || (y < 0) || (x >= 10) || (y >= 10))
 			return false;
-		return (Controller.getModel().myGrid.getArray()[x][y].equals(Cell.WATER) ||
-				Controller.getModel().myGrid.getArray()[x][y].equals(Cell.SHIP));
+		return (modelBeen.myGrid.getArray()[x][y].equals(Cell.WATER) ||
+				modelBeen.myGrid.getArray()[x][y].equals(Cell.SHIP));
 	}
 	
 }
