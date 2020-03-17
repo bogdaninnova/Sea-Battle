@@ -25,8 +25,7 @@ public class Frame extends JFrame implements Observer {
 	public Frame() {
 
 		System.out.println("Frame created");
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-		modelBeen = context.getBean("modelBean", ModelBean.class);
+		modelBeen = Controller.context.getBean("modelBean", ModelBean.class);
 		modelBeen.addObserver(this);
 
 		panelsList = new HashMap<>();

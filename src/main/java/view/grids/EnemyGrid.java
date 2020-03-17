@@ -19,8 +19,7 @@ public class EnemyGrid extends Grid {
 		PropertyConfigurator.configure("src\\main\\resources\\log4j.properties");
 		logger.debug("Enemies Grid created");
 		hideArray();
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-		ModelBean modelBeen = context.getBean("modelBean", ModelBean.class);
+		ModelBean modelBeen = Controller.context.getBean("modelBean", ModelBean.class);
 
 		addMouseListener(new MouseAdapter() {
 			@Override

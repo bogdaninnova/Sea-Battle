@@ -11,8 +11,7 @@ public class GamePanel extends AbstractMenuPanel implements Observer {
 
 	public GamePanel() {
 
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-		ModelBean modelBeen = context.getBean("modelBean", ModelBean.class);
+		ModelBean modelBeen = Controller.context.getBean("modelBean", ModelBean.class);
 
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);

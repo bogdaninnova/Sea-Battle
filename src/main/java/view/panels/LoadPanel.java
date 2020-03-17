@@ -13,8 +13,7 @@ public class LoadPanel extends AbstractMenuPanel {
 
 	public LoadPanel() {
 
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-		viewBean = context.getBean("viewBean", ViewBean.class);
+		viewBean = Controller.context.getBean("viewBean", ViewBean.class);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Constants.MENU_COLOR);

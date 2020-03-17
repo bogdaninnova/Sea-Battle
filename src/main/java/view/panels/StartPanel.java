@@ -15,18 +15,19 @@ public class StartPanel extends AbstractMenuPanel implements Observer {
 	public JButton startButton = createStartButton();
 	private final String[] ships = {"1-dimension", "2-dimension", "3-dimension", "4-dimension"};
 	public JComboBox<String> chooseShip = new JComboBox<>(ships);
-	public JTextField[] texts = createTexts();
+	public JTextField[] texts;
 	private JPanel shipsLeftPanel;
 	private ModelBean modelBeen;
 	private ViewBean viewBean;
 
 	public StartPanel() {
 
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-		modelBeen = context.getBean("modelBean", ModelBean.class);
-		viewBean = context.getBean("viewBean", ViewBean.class);
+		modelBeen = Controller.context.getBean("modelBean", ModelBean.class);
+		viewBean = Controller.context.getBean("viewBean", ViewBean.class);
 
+		texts = createTexts();
 		shipsLeftPanel = shipsLeftPanel();
+
 
 		chooseShip.setPreferredSize(new Dimension(
 				Constants.smallButtonDimension.width * 2 + Constants.INTERVAL,

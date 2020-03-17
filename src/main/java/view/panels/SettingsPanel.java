@@ -25,8 +25,7 @@ public class SettingsPanel extends AbstractMenuPanel  {
 
 	public SettingsPanel() {
 
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-		viewBean = context.getBean("viewBean", ViewBean.class);
+		viewBean = Controller.context.getBean("viewBean", ViewBean.class);
 
 		reset();
 		JPanel panel = new JPanel();

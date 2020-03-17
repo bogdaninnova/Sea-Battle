@@ -15,8 +15,7 @@ public class Enemy {
 	private ModelBean modelBeen;
 
 	public Enemy() {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-		modelBeen = context.getBean("modelBean", ModelBean.class);
+		modelBeen = Controller.context.getBean("modelBean", ModelBean.class);
 	}
 
 	public void shot() {

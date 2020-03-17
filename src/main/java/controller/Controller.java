@@ -12,12 +12,14 @@ import javax.swing.*;
 @SpringBootApplication
 public class Controller {
 
+	public static ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+
 	public static void main(String[] args) {
 
 		//SpringApplication.run(Controller.class, args);
 
 
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+
 
 //		modelBeen = new ModelBeen();
 //		viewBean = new ViewBean();
